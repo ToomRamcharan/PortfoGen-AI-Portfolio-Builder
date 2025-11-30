@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLRC Portfolio Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+
+<body>
+    <div id="loader" class="loader">
+        <div class="loader-content">NLRC <span>Portfolio Builder AI</span></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">NLRC <span>Portfolio Builder</span></div>
+            <div class="status-bar">AI Status: <span id="api-status" class="status-ready">Ready</span></div>
+        </header>
+
+        <main>
+            <section class="input-panel">
+                <div class="panel-tabs">
+                    <button class="panel-tab active" data-panel="create">Create</button>
+                    <button class="panel-tab" data-panel="edit">Edit & Chat</button>
+                </div>
+
+                <div id="panel-create" class="panel-content active">
+                    <h2>Profile Details</h2>
+                    <div class="form-group">
+                        <label>Profile Picture</label>
+                        <input type="file" id="profile-pic" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" placeholder="e.g. Alex Dev">
+                    </div>
+                    <div class="form-group">
+                        <label>Role / Title</label>
+                        <input type="text" id="role" placeholder="e.g. Full Stack Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label>Skills (comma separated)</label>
+                        <input type="text" id="skills" placeholder="React, Node.js, Python, AWS">
+                    </div>
+                    <div class="form-group">
+                        <label>Experience / Bio Seed</label>
+                        <textarea id="experience" rows="3" placeholder="Briefly describe your background..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Projects (JSON or List)</label>
+                        <textarea id="projects" rows="4"
+                            placeholder='[{"title": "Project A", "description": "..."}]'></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Template Style</label>
+                        <select id="templateStyle">
+                            <option value="1">1. Minimal Professional (Dark)</option>
+                            <option value="2">2. Glassmorphism Modern</option>
+                            <option value="3">3. Neon Futuristic Terminal</option>
+                        </select>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="btn-generate" class="btn-primary">Generate Portfolio</button>
+                    </div>
+                </div>
+
+                <div id="panel-edit" class="panel-content"
+                    style="padding: 0 !important; gap: 0 !important; overflow: hidden !important;">
+                    <div class="chat-container" style="height: 100%; display: flex; flex-direction: column;">
+                        <div id="chat-history" class="chat-history" style="flex: 1; min-height: 0;">
+                            <div class="chat-message ai">
+                                <div class="message-content">Hi! Fill out the form OR describe your dream portfolio here
+                                    to start building.</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-area" style="flex-shrink: 0;">
+                            <input type="file" id="chat-file" accept="image/*" style="display: none;">
+                            <button id="btn-upload-chat" class="btn-icon" title="Upload Image">📎</button>
+                            <textarea id="chat-input" placeholder="Type changes here..."></textarea>
+                            <button id="btn-send-chat" class="btn-icon" title="Send Message">➤</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="output-panel">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="preview">Visual Preview</button>
+                    <button class="tab-btn" data-tab="json">JSON Output</button>
+                </div>
+
+                <div id="preview-tab" class="tab-content active">
+                    <div id="portfolio-preview" class="preview-frame">
+                        <div class="placeholder-text">Generated portfolio will appear here...</div>
+                    </div>
+                    <button id="btn-download-zip" class="btn-primary"
+                        style="position: absolute; top: 20px; right: 120px; padding: 10px 20px; font-size: 0.95rem; display: none; z-index: 10;">📦
+                        Download ZIP</button>
+                </div>
+
+                <div id="json-tab" class="tab-content">
+                    <pre><code id="json-output">{}</code></pre>
+                    <button id="btn-copy-json" class="btn-small">Copy JSON</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
